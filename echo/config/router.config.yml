@@ -1,0 +1,6 @@
+package: oas
+generate:
+  echo-server: true
+output: ./internal/interfaces/oas/router.gen.go
+output-options:
+  skip-prune: true

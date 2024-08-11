@@ -1,0 +1,6 @@
+package: oas
+generate:
+  models: true
+output: ./internal/interfaces/oas/type.gen.go
+output-options:
+  skip-prune: true

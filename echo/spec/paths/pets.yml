@@ -1,0 +1,123 @@
+openapi: 3.0.2
+info:
+  title: My API
+  version: 1.0.0
+  description: Description of my API
+
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      responses:
+        '200':
+          description: A paged array of pets
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/pet.yml#/components/schemas/Pets'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/error.yml#/components/schemas/Error'
+    post:
+      summary: Create a pet
+      operationId: createPets
+      tags:
+        - pets
+      requestBody:
+        description: Created pet object
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/pet.yml#/components/schemas/PetRequestBody'
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/error.yml#/components/schemas/Error'
+  /pets/{id}:
+    get:
+      summary: Info for a specific pet
+      operationId: findPetById
+      tags:
+        - pets
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: integer
+            format: uint
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/pet.yml#/components/schemas/Pet'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/error.yml#/components/schemas/Error'
+    put:
+      summary: Update an existing pet
+      operationId: updatePet
+      tags:
+        - pets
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the pet to update
+          schema:
+            type: integer
+            format: uint
+      requestBody:
+        description: Update an existing pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/pet.yml#/components/schemas/PetRequestBody'
+      responses:
+        '200':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/error.yml#/components/schemas/Error'
+    delete:
+      summary: Deletes a pet
+      operationId: deletePet
+      tags:
+        - pets
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the pet to delete
+          schema:
+            type: integer
+            format: uint
+      responses:
+        '204':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/error.yml#/components/schemas/Error'
